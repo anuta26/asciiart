@@ -1,0 +1,5 @@
+package exporters
+
+trait ImageExporter {
+
+}
