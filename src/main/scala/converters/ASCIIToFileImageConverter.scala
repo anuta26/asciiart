@@ -1,5 +1,0 @@
-package converters
-
-trait ASCIIToFileImageConverter {
-
-}

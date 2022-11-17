@@ -1,5 +1,0 @@
-package filters
-
-trait ImageFilter {
-
-}

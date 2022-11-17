@@ -1,5 +1,0 @@
-package generators
-
-trait ImageGenerator {
-
-}

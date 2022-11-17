@@ -1,5 +1,0 @@
-package generators
-
-class RandomImageGenerator {
-
-}

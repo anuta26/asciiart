@@ -1,5 +1,0 @@
-package loaders
-
-trait ImageLoader {
-
-}

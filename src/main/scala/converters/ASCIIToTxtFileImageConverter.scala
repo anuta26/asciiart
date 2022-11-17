@@ -1,5 +1,0 @@
-package converters
-
-class ASCIIToTxtFileImageConverter {
-
-}

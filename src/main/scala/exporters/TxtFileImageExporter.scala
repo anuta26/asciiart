@@ -1,5 +1,0 @@
-package exporters
-
-class TxtFileImageExporter {
-
-}

@@ -1,5 +1,0 @@
-package exporters
-
-trait FileImageExporter {
-
-}
