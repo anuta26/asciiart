@@ -1,5 +1,5 @@
 package business.filters
 
-class RotateImageFilter {
+class RotateImageFilter(arg: Int) extends ImageFilter{
 
 }

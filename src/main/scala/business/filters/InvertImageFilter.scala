@@ -1,5 +1,5 @@
 package business.filters
 
-class InvertImageFilter {
+class InvertImageFilter extends ImageFilter {
 
 }
