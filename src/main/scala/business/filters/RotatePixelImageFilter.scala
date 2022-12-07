@@ -34,12 +34,10 @@ class RotatePixelImageFilter(private var degree: Int) extends PixelImageFilter {
 
   def rotate(grid: PixelGrid): PixelGrid = {
     val rotatePixels = Array.ofDim[Pixel](grid.height, grid.width)
-
     for {
       y <- 0 until grid.height
-      x <- 0 until grid.width
-    } rotatePixels(x)(grid.height - 1 - y) = grid.getElement(y, x)
-
+    } for (x <- 0 until grid.width)
+      rotatePixels(y)(grid.width - 1 - x) = grid.getElement(x, y)
     new PixelGrid(rotatePixels)
   }
 }

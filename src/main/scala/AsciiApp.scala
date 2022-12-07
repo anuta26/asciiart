@@ -13,7 +13,7 @@ class AsciiApp {
 
     val presenter: ConsolePresenter = new ConsolePresenter
 
-    try {
+//    try {
       // parse arguments
       val argsParser = new ArgumentsParser();
       argsParser.parse(args)
@@ -68,12 +68,12 @@ class AsciiApp {
             exporter.export(asciiImage)
         }
       }
-    }
-    catch {
-      case e =>
-        presenter.printException(e)
-        presenter.printOptions()
-    }
+//    }
+//    catch {
+//      case e =>
+//        presenter.printException(e)
+//        presenter.printOptions()
+//    }
 
 
   }
