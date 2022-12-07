@@ -1,5 +1,6 @@
 package business.loaders
 
-trait Loader {
+trait Loader[S,T] {
+  def load(arg: S): T
 
 }

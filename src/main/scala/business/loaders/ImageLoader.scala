@@ -1,5 +1,6 @@
 package business.loaders
 
-trait ImageLoader {
+import domain.image.PixelImage
 
+trait ImageLoader[S] extends Loader[S,PixelImage]{
 }

@@ -1,5 +1,5 @@
 package business.converters
 
-trait ImageConverter {
-
+trait ImageConverter[S,T]{
+  def convert(input: S): T
 }

@@ -1,21 +1,22 @@
 package ui.parsers
 
-import business.filters.{BrightnessImageFilter, ImageFilter, InvertImageFilter, RotateImageFilter}
+import business.filters.{BrightnessPixelImageFilter, PixelImageFilter, InvertPixelImageFilter, RotatePixelImageFilter}
 
 //run --image "test-image.jpg" --rotate +89 --invert --rotate +1 --output-file "../outputs/output.txt" --output-console --table "bourke-small"
 //run --image-random --rotate +89 --invert --rotate +1 --output-file "../outputs/output.txt" --output-console --table "bourke-small"
 class ArgumentsParser {
   private var _pathToLoad: String = ""
-  private var _filters: Array[ImageFilter] = Array[ImageFilter]()
+  private var _filters: Array[PixelImageFilter] = Array[PixelImageFilter]()
   private var _outputs: Array[String] = Array[String]()
   private var _table: String = ""
 
   def pathToLoad: String = _pathToLoad
-  def filters: Array[ImageFilter] = _filters
+  def filters: Array[PixelImageFilter] = _filters
   def outputs: Array[String] = _outputs
   def table: String = _table
 
 
+  //todo run?
   def parse(args: Array[String]) : Unit = {
     parsePathToLoad(args)
     parseOutputs(args)
@@ -35,7 +36,7 @@ class ArgumentsParser {
       this._pathToLoad = "--image-random"
     }
     else {
-        this._pathToLoad = args(idxImage + 1)
+      this._pathToLoad = args(idxImage + 1)
     }
   }
 
@@ -60,17 +61,18 @@ class ArgumentsParser {
     val idxTable = args.indexOf("--table")
     val idxCustomTable = args.indexOf("--custom-table")
 
-    if (idxTable == -1 & idxCustomTable == -1) {
+    if (idxTable == -1 && idxCustomTable == -1) {
       this._table = "default"
     }
 
-    if (idxTable != 1) {
+    if (idxTable != -1) {
       this._table = args(idxTable + 1)
     }
 
     if (idxCustomTable != -1) {
         this._table =  args(idxCustomTable + 1)
     }
+
   }
 
   def parseFilters (args: Array[String]): Unit = {
@@ -78,9 +80,9 @@ class ArgumentsParser {
     var i: Int = 0
     while(i < args.length) {
       args(i) match{
-        case "--rotate" => _filters = _filters ++ Array(new RotateImageFilter(args(i+1).toInt))
-        case "--invert" => _filters = _filters ++ Array(new InvertImageFilter())
-        case "--brightness" => _filters = _filters ++ Array(new BrightnessImageFilter(args(i+1).toInt))
+        case "--rotate" => _filters = _filters ++ Array(new RotatePixelImageFilter(args(i+1).toInt))
+        case "--invert" => _filters = _filters ++ Array(new InvertPixelImageFilter())
+        case "--brightness" => _filters = _filters ++ Array(new BrightnessPixelImageFilter(args(i+1).toInt))
         case _ =>
       }
       i += 1

@@ -1,5 +1,7 @@
 package domain.tables
 
-trait LinearConversionTable {
+class LinearConversionTable(private var symbols: String) extends ConversionTable {
+  def getSymbols: String = symbols
+
 
 }

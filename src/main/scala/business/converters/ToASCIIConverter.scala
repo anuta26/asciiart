@@ -1,5 +1,8 @@
 package business.converters
 
-trait ToASCIIConverter {
+import domain.image.{AsciiImage, PixelImage}
+import domain.tables.{ConversionTable, LinearConversionTable, NonLinearConversionTable}
+
+trait ToASCIIConverter[S <: ConversionTable] extends ImageConverter [PixelImage, AsciiImage] {
 
 }

@@ -1,5 +1,5 @@
 package domain.tables
 
-trait ConversionTable {
-
+trait ConversionTable{
+  def getSymbols: String
 }

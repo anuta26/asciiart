@@ -1,5 +1,5 @@
 package business.exporters
 
-trait FileImageExporter {
-
+trait FileImageExporter extends AsciiImageExporter{
+  def pathToFile: String
 }

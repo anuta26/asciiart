@@ -1,5 +1,7 @@
 package business.generators
 
-trait ImageGenerator {
+import domain.image.PixelImage
 
+trait ImageGenerator {
+  def generate(): PixelImage
 }

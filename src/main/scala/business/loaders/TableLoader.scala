@@ -1,5 +1,6 @@
 package business.loaders
 
-trait TableLoader {
+import domain.tables.ConversionTable
 
+trait TableLoader[S <: ConversionTable] extends Loader[String,S]{
 }
