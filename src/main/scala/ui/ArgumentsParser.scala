@@ -1,4 +1,4 @@
-package ui.parsers
+package ui
 
 import business.filters.{BrightnessPixelImageFilter, PixelImageFilter, InvertPixelImageFilter, RotatePixelImageFilter}
 

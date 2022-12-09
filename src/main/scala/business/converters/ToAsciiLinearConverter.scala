@@ -7,7 +7,7 @@ import domain.tables.LinearConversionTable
 
 import java.awt.Color
 
-class ToAsciiLinearConverter(table: LinearConversionTable) extends ToASCIIConverter [LinearConversionTable]{
+class ToAsciiLinearConverter(table: LinearConversionTable) extends ToAsciiConverter [LinearConversionTable]{
 
   def convert (image: RGBImage): AsciiImage = {
     val chars = Array.ofDim[Char](image.getHeight, image.getWidth)

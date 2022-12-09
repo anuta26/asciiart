@@ -4,7 +4,7 @@ import domain.grid.CharGrid
 import domain.image.{AsciiImage, RGBImage}
 import domain.tables.NonLinearConversionTable
 
-class ToAsciiNonLinearConverter(table: NonLinearConversionTable) extends ToASCIIConverter [NonLinearConversionTable]{
+class ToAsciiNonLinearConverter(table: NonLinearConversionTable) extends ToAsciiConverter [NonLinearConversionTable]{
   def convert(image: RGBImage): AsciiImage = {
     val chars = Array.ofDim[Char](image.getHeight, image.getWidth)
     val lengthOfTable = table.getSymbols.length

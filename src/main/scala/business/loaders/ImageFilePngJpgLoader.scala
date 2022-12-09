@@ -12,22 +12,16 @@ import javax.imageio.ImageIO
 
 class ImageFilePngJpgLoader extends ImageLoader[String] {
   def load(path: String): RGBImage = {
-    var image: BufferedImage = null
-    try {
-      val inputFile = new File(path)
-      if (!inputFile.isFile)
-        throw new IllegalArgumentException(s"File $path does not exist.")
-      image = ImageIO.read(inputFile)
+    val format: String = path.substring(path.length - 3, path.length)
+    if ( format != "jpg" || format != "png") {
+      throw new IllegalArgumentException("Wrong format of input file.")
     }
-    catch {
-      case ex: FileNotFoundException =>
-        println("Cannot open file.")
 
+    val inputFile = new File(path)
+    if (!inputFile.isFile)
+      throw new IllegalArgumentException(s"File $path does not exist.")
 
-      case ex: IOException =>
-        println("Exception while reading from file.")
-
-    }
+    val image: BufferedImage = ImageIO.read(inputFile)
 
     val pixels = Array.ofDim[RGBPixel](image.getHeight, image.getWidth)
     for (y <- 0 until image.getHeight)
@@ -39,6 +33,5 @@ class ImageFilePngJpgLoader extends ImageLoader[String] {
     val pixelGrid = new PixelGrid(pixels)
     new RGBImage(pixelGrid)
   }
-
 
 }
