@@ -1,8 +1,8 @@
 package business.filters
 
-import domain.image.PixelImage
+import domain.image.RGBImage
 
-trait PixelImageFilter extends ImageFilter [PixelImage]{
-  def apply(image: PixelImage): PixelImage
+trait PixelImageFilter extends ImageFilter [RGBImage]{
+  def apply(image: RGBImage): RGBImage
 
 }

@@ -1,7 +1,7 @@
 package business.generators
 
-import domain.image.PixelImage
+import domain.image.RGBImage
 
 trait ImageGenerator {
-  def generate(): PixelImage
+  def generate(): RGBImage
 }

@@ -1,17 +1,18 @@
 package business.filters
 
-import domain.image.grid.PixelGrid
-import domain.image.{Pixel, PixelImage}
+import domain.grid.PixelGrid
+import domain.image.RGBImage
+import domain.pixel.RGBPixel
 
 class RotatePixelImageFilter(private var degree: Int) extends PixelImageFilter {
-  override def apply(image: PixelImage): PixelImage = {
+  override def apply(image: RGBImage): RGBImage = {
     if (degree % 90 != 0)
       throw new IllegalArgumentException("Unsupportable rotate degree.")
     degree = (degree / 90) % 4
     if (degree < 0)
       degree = degree + 4
 
-    val rotatePixels = Array.ofDim[Pixel](image.getHeight, image.getWidth)
+    val rotatePixels = Array.ofDim[RGBPixel](image.getHeight, image.getWidth)
     var pixelGrid: PixelGrid = new PixelGrid(rotatePixels)
 
     degree match {
@@ -29,11 +30,11 @@ class RotatePixelImageFilter(private var degree: Int) extends PixelImageFilter {
 
     }
 
-    new PixelImage(pixelGrid)
+    new RGBImage(pixelGrid)
   }
 
   def rotate(grid: PixelGrid): PixelGrid = {
-    val rotatePixels = Array.ofDim[Pixel](grid.height, grid.width)
+    val rotatePixels = Array.ofDim[RGBPixel](grid.height, grid.width)
     for {
       y <- 0 until grid.height
     } for (x <- 0 until grid.width)

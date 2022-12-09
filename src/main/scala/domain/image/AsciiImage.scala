@@ -1,6 +1,6 @@
 package domain.image
 
-import domain.image.grid.{CharGrid, Grid}
+import domain.grid.{CharGrid, Grid}
 
 
 class AsciiImage (var charGrid: CharGrid) extends Image[Char]{

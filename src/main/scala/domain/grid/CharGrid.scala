@@ -1,4 +1,4 @@
-package domain.image.grid
+package domain.grid
 
 class CharGrid (private var _symbols: Array[Array[Char]]) extends Grid[Char]{
   private val _width: Int = _symbols.length

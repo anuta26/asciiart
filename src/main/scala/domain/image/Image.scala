@@ -1,7 +1,8 @@
 package domain.image
 
-import domain.image.grid.Grid
+import domain.grid.Grid
+import domain.pixel.Pixel
 
-trait Image[T] {
+trait Image [T] {
   def getGrid: Grid[T]
 }

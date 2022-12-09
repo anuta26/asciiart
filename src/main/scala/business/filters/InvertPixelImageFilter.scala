@@ -1,10 +1,11 @@
 package business.filters
 
-import domain.image.grid.PixelGrid
-import domain.image.{Pixel, PixelImage}
+import domain.grid.PixelGrid
+import domain.image.RGBImage
+import domain.pixel.RGBPixel
 
 class InvertPixelImageFilter extends PixelImageFilter {
-  override def apply(image: PixelImage): PixelImage = {
+  override def apply(image: RGBImage): RGBImage = {
     for {
       y <- 0 until image.getHeight
       x <- 0 until image.getWidth

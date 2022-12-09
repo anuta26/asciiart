@@ -1,8 +1,9 @@
 package business.loaders
 
 import business.generators.RandomImageGenerator
-import domain.image.grid.PixelGrid
-import domain.image.{Pixel, PixelImage}
+import domain.grid.PixelGrid
+import domain.image.RGBImage
+import domain.pixel.RGBPixel
 
 import java.awt.Color
 import java.awt.image.BufferedImage
@@ -10,7 +11,7 @@ import java.io.{File, FileNotFoundException, IOException}
 import javax.imageio.ImageIO
 
 class ImageFilePngJpgLoader extends ImageLoader[String] {
-  def load(path: String): PixelImage = {
+  def load(path: String): RGBImage = {
     var image: BufferedImage = null
     try {
       val inputFile = new File(path)
@@ -19,24 +20,24 @@ class ImageFilePngJpgLoader extends ImageLoader[String] {
       image = ImageIO.read(inputFile)
     }
     catch {
-      case ex: FileNotFoundException => {
+      case ex: FileNotFoundException =>
         println("Cannot open file.")
-      }
 
-      case ex: IOException => {
+
+      case ex: IOException =>
         println("Exception while reading from file.")
-      }
+
     }
 
-    val pixels = Array.ofDim[Pixel](image.getHeight, image.getWidth)
+    val pixels = Array.ofDim[RGBPixel](image.getHeight, image.getWidth)
     for (y <- 0 until image.getHeight)
       for (x <- 0 until image.getWidth) {
         val color = new Color(image.getRGB(x, y))
-        pixels(y)(x) = new Pixel(color.getRed, color.getGreen, color.getBlue)
+        pixels(y)(x) = new RGBPixel(color.getRed, color.getGreen, color.getBlue)
       }
 
     val pixelGrid = new PixelGrid(pixels)
-    new PixelImage(pixelGrid)
+    new RGBImage(pixelGrid)
   }
 
 

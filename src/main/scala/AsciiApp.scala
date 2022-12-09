@@ -3,7 +3,7 @@ import business.exporters.{ConsoleImageExporter, TxtFileImageExporter}
 import business.filters.{InvertPixelImageFilter, RotatePixelImageFilter}
 import business.generators.RandomImageGenerator
 import business.loaders.{ImageFilePngJpgLoader, ImageRandomLoader, LinearTableLoader, NonLinearTableLoader}
-import domain.image.{AsciiImage, PixelImage}
+import domain.image.{AsciiImage, RGBImage}
 import domain.tables.{LinearConversionTable, NonLinearConversionTable}
 import ui.parsers.ArgumentsParser
 import ui.presenters.ConsolePresenter
@@ -15,12 +15,12 @@ class AsciiApp {
 
 //    try {
       // parse arguments
-      val argsParser = new ArgumentsParser();
+      val argsParser = new ArgumentsParser()
       argsParser.parse(args)
 
       // load an image
       presenter.printStage("Loading image...")
-      var image: PixelImage = null
+      var image: RGBImage = null
       argsParser.pathToLoad match {
         case "--image-random" =>
           val imageLoader: ImageRandomLoader = new ImageRandomLoader
