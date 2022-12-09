@@ -3,8 +3,11 @@ package domain.image
 import domain.grid.{CharGrid, Grid}
 
 
-class AsciiImage (var charGrid: CharGrid) extends Image[Char]{
-  def getGrid: CharGrid = charGrid
-  def getWidth: Int = charGrid.width
-  def getHeight: Int = charGrid.height
+class AsciiImage (var grid: CharGrid) extends Image[Char]{
+  override def getGrid: CharGrid = grid
+  def getWidth: Int = grid.width
+  def getHeight: Int = grid.height
+  override def getElement(x: Int, y: Int): Char = {
+    grid.getElement(x, y)
+  }
 }

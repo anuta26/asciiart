@@ -3,8 +3,11 @@ package domain.image
 import domain.grid.PixelGrid
 import domain.pixel.RGBPixel
 
-class RGBImage(var pixelGrid: PixelGrid) extends Image[RGBPixel]{
-  def getGrid: PixelGrid = pixelGrid
-  def getWidth: Int = pixelGrid.width
-  def getHeight: Int = pixelGrid.height
+class RGBImage(var grid: PixelGrid) extends Image[RGBPixel]{
+  override def getGrid: PixelGrid = grid
+  def getWidth: Int = grid.width
+  def getHeight: Int = grid.height
+  override def getElement(x: Int, y: Int): RGBPixel = {
+    grid.getElement(x,y)
+  }
 }

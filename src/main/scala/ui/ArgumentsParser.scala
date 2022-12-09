@@ -1,22 +1,20 @@
 package ui
 
-import business.filters.{BrightnessPixelImageFilter, PixelImageFilter, InvertPixelImageFilter, RotatePixelImageFilter}
+import business.filters.{BrightnessGreyscaleImageFilter, GreyscaleImageFilter, InvertGreyscaleImageFilter, RotateGreyscaleImageFilter}
 
 //run --image "test-image.jpg" --rotate +89 --invert --rotate +1 --output-file "../outputs/output.txt" --output-console --table "bourke-small"
 //run --image-random --rotate +89 --invert --rotate +1 --output-file "../outputs/output.txt" --output-console --table "bourke-small"
 class ArgumentsParser {
   private var _pathToLoad: String = ""
-  private var _filters: Array[PixelImageFilter] = Array[PixelImageFilter]()
+  private var _filters: Array[GreyscaleImageFilter] = Array[GreyscaleImageFilter]()
   private var _outputs: Array[String] = Array[String]()
   private var _table: String = ""
 
   def pathToLoad: String = _pathToLoad
-  def filters: Array[PixelImageFilter] = _filters
+  def filters: Array[GreyscaleImageFilter] = _filters
   def outputs: Array[String] = _outputs
   def table: String = _table
 
-
-  //todo run?
   def parse(args: Array[String]) : Unit = {
     parsePathToLoad(args)
     parseOutputs(args)
@@ -80,9 +78,9 @@ class ArgumentsParser {
     var i: Int = 0
     while(i < args.length) {
       args(i) match{
-        case "--rotate" => _filters = _filters ++ Array(new RotatePixelImageFilter(args(i+1).toInt))
-        case "--invert" => _filters = _filters ++ Array(new InvertPixelImageFilter())
-        case "--brightness" => _filters = _filters ++ Array(new BrightnessPixelImageFilter(args(i+1).toInt))
+        case "--rotate" => _filters = _filters ++ Array(new RotateGreyscaleImageFilter(args(i+1).toInt))
+        case "--invert" => _filters = _filters ++ Array(new InvertGreyscaleImageFilter())
+        case "--brightness" => _filters = _filters ++ Array(new BrightnessGreyscaleImageFilter(args(i+1).toInt))
         case _ =>
       }
       i += 1

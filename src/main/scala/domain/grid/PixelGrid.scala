@@ -12,6 +12,4 @@ class PixelGrid(private var _pixels: Array[Array[RGBPixel]]) extends Grid[RGBPix
   }
   def width: Int = _width
   def height: Int = _height
-
-
 }
