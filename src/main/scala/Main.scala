@@ -1,5 +1,4 @@
 object Main extends App {
-
-  val app = new AsciiApp;
-  app.run(args);
+  val app = new AsciiApp
+  app.run(args)
 }

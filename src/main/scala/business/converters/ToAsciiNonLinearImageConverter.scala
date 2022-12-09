@@ -1,21 +1,37 @@
 package business.converters
 
-import domain.grid.CharGrid
+import domain.grid.AsciiPixelGrid
 import domain.image.{AsciiImage, GreyscaleImage}
+import domain.pixel.AsciiPixel
 import domain.tables.NonLinearConversionTable
 
-class ToAsciiNonLinearImageConverter(table: NonLinearConversionTable) extends ToAsciiImageConverter [NonLinearConversionTable]{
+/** Converter which converts GreyscaleImage to AsciiImage using non-linear table
+ *
+ * @param table non-linear conversion table which will be used for converting
+ */
+class ToAsciiNonLinearImageConverter(table: NonLinearConversionTable)
+    extends ToAsciiImageConverter[NonLinearConversionTable] {
+
+  /**
+   *
+   * @param image image to convert
+   *  @return result image
+   */
   def convert(image: GreyscaleImage): AsciiImage = {
-    val chars = Array.ofDim[Char](image.getHeight, image.getWidth)
+    val chars = Array.ofDim[AsciiPixel](image.getHeight, image.getWidth)
     val lengthOfTable = table.getSymbols.length
-    for (y <- 0 until image.getHeight; x <- 0 until image.getWidth) {
-      if (image.getElement(x,y).getGreyscale < table.getRange) {
-        chars(y)(x) = table.getSymbols(0)
-      }
-      else {
-        chars(y)(x) = table.getSymbols(((image.getElement(x,y).getGreyscale - table.getRange) / ((256.0 - table.getRange) / (lengthOfTable - 1))).toInt + 1)
-      }
-    }
-    new AsciiImage(new CharGrid(chars))
+
+    // greyscale from 0 to range will be converted to the first symbol of the conversion table
+    for {
+      y <- 0 until image.getHeight
+      x <- 0 until image.getWidth
+    } if (image.getElement(x, y).getGreyscale < table.getRange)
+      chars(y)(x) = new AsciiPixel(table.getSymbols(0))
+    else
+      chars(y)(x) = new AsciiPixel(table.getSymbols(((image
+        .getElement(x, y)
+        .getGreyscale - table.getRange) / ((256.0 - table.getRange) / (lengthOfTable - 1))).toInt + 1))
+
+    new AsciiImage(new AsciiPixelGrid(chars.map(array => array.toSeq)))
   }
 }

@@ -1,21 +1,32 @@
 package business.converters
 
-import domain.grid.CharGrid
-import domain.image.{AsciiImage, GreyscaleImage, RGBImage}
-import domain.pixel.RGBPixel
+import domain.grid.AsciiPixelGrid
+import domain.image.{AsciiImage, GreyscaleImage}
+import domain.pixel.AsciiPixel
 import domain.tables.LinearConversionTable
 
-import java.awt.Color
+/** Converter which converts GreyscaleImage to AsciiImage using linear table
+ *
+ * @param table linear conversion table which will be used for converting
+ */
+class ToAsciiLinearImageConverter(table: LinearConversionTable)
+    extends ToAsciiImageConverter[LinearConversionTable] {
 
-class ToAsciiLinearImageConverter(table: LinearConversionTable) extends ToAsciiImageConverter [LinearConversionTable]{
-
-  def convert (image: GreyscaleImage): AsciiImage = {
-    val chars = Array.ofDim[Char](image.getHeight, image.getWidth)
+  /**
+   *
+   * @param image image to convert
+   *  @return result image
+   */
+  def convert(image: GreyscaleImage): AsciiImage = {
+    val chars = Array.ofDim[AsciiPixel](image.getHeight, image.getWidth)
     val lengthOfTable = table.getSymbols.length
-    for (y <- 0 until image.getHeight; x <- 0 until image.getWidth) {
-      chars(y)(x) = table.getSymbols((image.getElement(x,y).getGreyscale / (256.0 / lengthOfTable)).toInt)
-    }
-    new AsciiImage( new CharGrid(chars))
+    for {
+      y <- 0 until image.getHeight
+      x <- 0 until image.getWidth
+    } chars(y)(x) = new AsciiPixel(
+      table.getSymbols(
+        (image.getElement(x, y).getGreyscale / (256.0 / lengthOfTable)).toInt))
+    new AsciiImage(new AsciiPixelGrid(chars.map(array => array.toSeq)))
   }
 
 }

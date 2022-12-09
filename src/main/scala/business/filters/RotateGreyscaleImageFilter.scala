@@ -4,7 +4,21 @@ import domain.grid.GreyscaleGrid
 import domain.image.GreyscaleImage
 import domain.pixel.GreyscalePixel
 
-class RotateGreyscaleImageFilter(private var degree: Int) extends GreyscaleImageFilter {
+/** Filter which rotates image by certain number of degrees
+ *  +90 degrees rotate one time to right
+ *  -90 degrees rotate one time to left
+ *
+ *  The number of degrees must be a multiply of 90
+ *
+ * @param degree number of degrees to rotate
+ */
+class RotateGreyscaleImageFilter(private var degree: Int)
+    extends GreyscaleImageFilter {
+  /** Rotates image by certain degrees
+   *
+   * @param image image to be filtered
+   *  @return result image
+   */
   override def apply(image: GreyscaleImage): GreyscaleImage = {
     if (degree % 90 != 0)
       throw new IllegalArgumentException("Unsupportable rotate degree.")
@@ -12,8 +26,10 @@ class RotateGreyscaleImageFilter(private var degree: Int) extends GreyscaleImage
     if (degree < 0)
       degree = degree + 4
 
-    val rotatePixels = Array.ofDim[GreyscalePixel](image.getHeight, image.getWidth)
-    var grid: GreyscaleGrid = new GreyscaleGrid(rotatePixels)
+    val rotatePixels =
+      Array.ofDim[GreyscalePixel](image.getHeight, image.getWidth)
+    var grid: GreyscaleGrid = new GreyscaleGrid(
+      rotatePixels.map(array => array.toSeq))
 
     degree match {
       case 1 =>
@@ -29,16 +45,20 @@ class RotateGreyscaleImageFilter(private var degree: Int) extends GreyscaleImage
         grid = image.getGrid
 
     }
-
     new GreyscaleImage(grid)
   }
 
+  /** Rotates image 90 degrees to right
+   *
+   * @param grid grid of image to rotate
+   * @return rotated grid
+   */
   def rotate(grid: GreyscaleGrid): GreyscaleGrid = {
     val rotatePixels = Array.ofDim[GreyscalePixel](grid.height, grid.width)
     for {
       y <- 0 until grid.height
     } for (x <- 0 until grid.width)
       rotatePixels(grid.height - 1 - y)(x) = grid.getElement(x, y)
-    new GreyscaleGrid(rotatePixels)
+    new GreyscaleGrid(rotatePixels.map(array => array.toSeq))
   }
 }

@@ -1,13 +1,17 @@
 package domain.image
 
-import domain.grid.{CharGrid, Grid}
+import domain.grid.{AsciiPixelGrid, Grid}
+import domain.pixel.AsciiPixel
 
-
-class AsciiImage (var grid: CharGrid) extends Image[Char]{
-  override def getGrid: CharGrid = grid
+/** Image with Ascii pixels
+ *
+ * @param grid grid of Ascii pixels
+ */
+class AsciiImage (var grid: AsciiPixelGrid) extends Image[AsciiPixel]{
+  override def getGrid: AsciiPixelGrid = grid
   def getWidth: Int = grid.width
   def getHeight: Int = grid.height
-  override def getElement(x: Int, y: Int): Char = {
+  override def getElement(x: Int, y: Int): AsciiPixel = {
     grid.getElement(x, y)
   }
 }

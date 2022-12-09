@@ -1,5 +1,8 @@
 package domain.tables
 
-trait ConversionTable{
+/** Conversion table which will be used to convert GreyscaleImage to AsciiImage
+ *
+ * */
+trait ConversionTable {
   def getSymbols: String
 }

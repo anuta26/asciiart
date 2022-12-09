@@ -1,21 +1,27 @@
 package business.loaders
 
-import business.generators.RandomImageGenerator
-import domain.grid.PixelGrid
+import domain.grid.RGBPixelGrid
 import domain.image.RGBImage
 import domain.pixel.RGBPixel
 
 import java.awt.Color
 import java.awt.image.BufferedImage
-import java.io.{File, FileNotFoundException, IOException}
+import java.io.File
 import javax.imageio.ImageIO
 
-class ImageFilePngJpgLoader extends ImageLoader[String] {
+/** Loader which loads rgb image from .png or .jpg file
+ *
+ */
+class RGBImageFilePngJpgLoader extends RGBImageLoader[String] {
+  /** Loads image
+   *
+   * @param path path to file from which image will be loaded
+   *  @return loaded image
+   */
   def load(path: String): RGBImage = {
     val format: String = path.substring(path.length - 3, path.length)
-    if ( format != "jpg" && format != "png") {
+    if (format != "jpg" && format != "png")
       throw new IllegalArgumentException("Wrong format of input file.")
-    }
 
     val inputFile = new File(path)
     if (!inputFile.isFile)
@@ -30,7 +36,7 @@ class ImageFilePngJpgLoader extends ImageLoader[String] {
         pixels(y)(x) = new RGBPixel(color.getRed, color.getGreen, color.getBlue)
       }
 
-    val pixelGrid = new PixelGrid(pixels)
+    val pixelGrid = new RGBPixelGrid(pixels.map(array => array.toSeq))
     new RGBImage(pixelGrid)
   }
 
