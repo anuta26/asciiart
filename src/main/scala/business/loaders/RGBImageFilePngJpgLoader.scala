@@ -11,14 +11,14 @@ import javax.imageio.ImageIO
 
 /** Loader which loads rgb image from .png or .jpg file
  *
+ * @param path path to file from which image will be loaded
  */
-class RGBImageFilePngJpgLoader extends RGBImageLoader[String] {
+class RGBImageFilePngJpgLoader(path: String) extends RGBImageLoader[String] {
   /** Loads image
    *
-   * @param path path to file from which image will be loaded
    *  @return loaded image
    */
-  def load(path: String): RGBImage = {
+  def load(): RGBImage = {
     val format: String = path.substring(path.length - 3, path.length)
     if (format != "jpg" && format != "png")
       throw new IllegalArgumentException("Wrong format of input file.")

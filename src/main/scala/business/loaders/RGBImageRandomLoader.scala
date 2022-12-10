@@ -3,17 +3,17 @@ package business.loaders
 import business.generators.RandomRGBImageGenerator
 import domain.image.RGBImage
 
-/** Loader which uses random image generator
+/**Loader which uses random image generator
  *
+ * @param generator random generator to use
  */
-class RGBImageRandomLoader extends RGBImageLoader[RandomRGBImageGenerator] {
+class RGBImageRandomLoader(generator: RandomRGBImageGenerator) extends RGBImageLoader[RandomRGBImageGenerator] {
 
   /** Loads image
    *
-   * @param generator random generator to use
    *  @return loaded image
    */
-  def load(generator: RandomRGBImageGenerator): RGBImage =
+  def load(): RGBImage =
     generator.generate()
 
 }

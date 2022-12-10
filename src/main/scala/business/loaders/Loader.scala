@@ -8,9 +8,8 @@ package business.loaders
 trait Loader[S,T] {
   /**
    *
-   * @param arg path to load
    * @return loaded object
    */
-  def load(arg: S): T
+  def load(): T
 
 }

@@ -28,9 +28,9 @@ class AsciiApp {
     // load an image
     val rgbImage: RGBImage = argsParser.pathToLoad match {
       case "--image-random" =>
-        new RGBImageRandomLoader().load(new RandomRGBImageGenerator)
+        new RGBImageRandomLoader(new RandomRGBImageGenerator).load()
       case _ =>
-        new RGBImageFilePngJpgLoader().load(argsParser.pathToLoad)
+        new RGBImageFilePngJpgLoader(argsParser.pathToLoad).load()
 
     }
     var greyscaleImage: GreyscaleImage =
@@ -45,14 +45,14 @@ class AsciiApp {
     val asciiImage: AsciiImage = argsParser.table match {
       case "default" | "Paul Bourkes’ table" =>
         val table: LinearConversionTable =
-          new LinearTableLoader().load(argsParser.table)
+          new LinearTableLoader(argsParser.table).load()
         val converter: ToAsciiLinearImageConverter =
           new ToAsciiLinearImageConverter(table)
         converter.convert(greyscaleImage)
 
       case "non-linear" =>
-        val tableLoader = new NonLinearTableLoader()
-        val table: NonLinearConversionTable = tableLoader.load(argsParser.table)
+        val tableLoader = new NonLinearTableLoader(argsParser.table)
+        val table: NonLinearConversionTable = tableLoader.load()
         val converter: ToAsciiNonLinearImageConverter =
           new ToAsciiNonLinearImageConverter(table)
         converter.convert(greyscaleImage)
