@@ -29,11 +29,11 @@ class RGBImageFilePngJpgLoader(path: String) extends RGBImageLoader[String] {
 
     val image: BufferedImage = ImageIO.read(inputFile)
 
-    val pixels = Array.ofDim[RGBPixel](image.getHeight, image.getWidth)
+    val pixels = Array.ofDim[RGBPixel](image.getWidth, image.getHeight)
     for (y <- 0 until image.getHeight)
       for (x <- 0 until image.getWidth) {
         val color = new Color(image.getRGB(x, y))
-        pixels(y)(x) = new RGBPixel(color.getRed, color.getGreen, color.getBlue)
+        pixels(x)(y) = new RGBPixel(color.getRed, color.getGreen, color.getBlue)
       }
 
     val pixelGrid = new RGBPixelGrid(pixels.map(array => array.toSeq))

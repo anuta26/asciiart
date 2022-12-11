@@ -1,6 +1,6 @@
 package business.converters
 
-import domain.grid.GreyscaleGrid
+import domain.grid.GreyscalePixelGrid
 import domain.image.{GreyscaleImage, RGBImage}
 import domain.pixel.GreyscalePixel
 
@@ -25,6 +25,6 @@ class ToGreyscaleImageConverter
       pixels(y)(x) = new GreyscalePixel(
         0.3 * rgbPixel.red + 0.59 * rgbPixel.green + 0.11 * rgbPixel.blue)
     }
-    new GreyscaleImage(new GreyscaleGrid(pixels.map(array => array.toSeq)))
+    new GreyscaleImage(new GreyscalePixelGrid(pixels.map(array => array.toSeq)))
   }
 }

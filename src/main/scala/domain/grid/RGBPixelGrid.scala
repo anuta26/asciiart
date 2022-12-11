@@ -7,9 +7,13 @@ import domain.pixel.RGBPixel
  * @param _pixels sequence of symbols of type RGBPixel
  */
 class RGBPixelGrid(private var _pixels: Seq[Seq[RGBPixel]])
-    extends Grid[RGBPixel] {
+    extends PixelGrid[RGBPixel] {
   private val _width: Int = _pixels.length
-  private val _height: Int = _pixels.head.length
+  private val _height: Int =
+    if (_width == 0)
+      0
+    else
+      _pixels.head.length
   def pixels: Seq[Seq[RGBPixel]] = _pixels
 
   def getElement(x: Int, y: Int): RGBPixel =

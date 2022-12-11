@@ -1,6 +1,6 @@
 package domain.image
 
-import domain.grid.{AsciiPixelGrid, Grid}
+import domain.grid.AsciiPixelGrid
 import domain.pixel.AsciiPixel
 
 /** Image with Ascii pixels

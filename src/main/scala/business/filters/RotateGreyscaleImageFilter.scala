@@ -1,6 +1,6 @@
 package business.filters
 
-import domain.grid.GreyscaleGrid
+import domain.grid.GreyscalePixelGrid
 import domain.image.GreyscaleImage
 import domain.pixel.GreyscalePixel
 
@@ -28,7 +28,7 @@ class RotateGreyscaleImageFilter(private var degree: Int)
 
     val rotatePixels =
       Array.ofDim[GreyscalePixel](image.getHeight, image.getWidth)
-    var grid: GreyscaleGrid = new GreyscaleGrid(
+    var grid: GreyscalePixelGrid = new GreyscalePixelGrid(
       rotatePixels.map(array => array.toSeq))
 
     degree match {
@@ -53,12 +53,12 @@ class RotateGreyscaleImageFilter(private var degree: Int)
    * @param grid grid of image to rotate
    * @return rotated grid
    */
-  def rotate(grid: GreyscaleGrid): GreyscaleGrid = {
+  def rotate(grid: GreyscalePixelGrid): GreyscalePixelGrid = {
     val rotatePixels = Array.ofDim[GreyscalePixel](grid.height, grid.width)
     for {
       y <- 0 until grid.height
     } for (x <- 0 until grid.width)
-      rotatePixels(grid.height - 1 - y)(x) = grid.getElement(x, y)
-    new GreyscaleGrid(rotatePixels.map(array => array.toSeq))
+      rotatePixels(y)(grid.width - 1 - x ) = grid.getElement(x, y)
+    new GreyscalePixelGrid(rotatePixels.map(array => array.toSeq))
   }
 }

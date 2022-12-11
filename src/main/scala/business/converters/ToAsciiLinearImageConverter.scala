@@ -18,14 +18,14 @@ class ToAsciiLinearImageConverter(table: LinearConversionTable)
    *  @return result image
    */
   def convert(image: GreyscaleImage): AsciiImage = {
-    val chars = Array.ofDim[AsciiPixel](image.getHeight, image.getWidth)
+    val chars = Array.ofDim[AsciiPixel](image.getWidth, image.getHeight)
     val lengthOfTable = table.getSymbols.length
-    for {
-      y <- 0 until image.getHeight
-      x <- 0 until image.getWidth
-    } chars(y)(x) = new AsciiPixel(
+    for (x <- 0 until image.getWidth) {
+      for(y <- 0 until image.getHeight){
+
+     chars(x)(y) = new AsciiPixel(
       table.getSymbols(
-        (image.getElement(x, y).getGreyscale / (256.0 / lengthOfTable)).toInt))
+        (image.getElement(x, y).getGreyscale / (256.0 / lengthOfTable)).toInt))}}
     new AsciiImage(new AsciiPixelGrid(chars.map(array => array.toSeq)))
   }
 

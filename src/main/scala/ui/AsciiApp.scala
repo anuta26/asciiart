@@ -1,19 +1,11 @@
-import business.converters.{
-  ToAsciiLinearImageConverter,
-  ToAsciiNonLinearImageConverter,
-  ToGreyscaleImageConverter
-}
+package ui
+
+import business.converters.{ToAsciiLinearImageConverter, ToAsciiNonLinearImageConverter, ToGreyscaleImageConverter}
 import business.exporters.{ConsoleImageExporter, TxtFileImageExporter}
 import business.generators.RandomRGBImageGenerator
-import business.loaders.{
-  RGBImageFilePngJpgLoader,
-  RGBImageRandomLoader,
-  LinearTableLoader,
-  NonLinearTableLoader
-}
+import business.loaders.{LinearTableLoader, NonLinearTableLoader, RGBImageFilePngJpgLoader, RGBImageRandomLoader}
 import domain.image.{AsciiImage, GreyscaleImage, RGBImage}
 import domain.tables.{LinearConversionTable, NonLinearConversionTable}
-import ui.ArgumentsParser
 
 /** CLass which contains main commands of application and calls them in certain order
  *
@@ -62,7 +54,7 @@ class AsciiApp {
     for (output <- argsParser.outputs)
       output match {
         case "--output-console" =>
-          val exporter: ConsoleImageExporter = new ConsoleImageExporter
+          val exporter: ConsoleImageExporter = new ConsoleImageExporter(Console.out)
           exporter.export(asciiImage)
         case _ =>
           val exporter: TxtFileImageExporter = new TxtFileImageExporter(output)
