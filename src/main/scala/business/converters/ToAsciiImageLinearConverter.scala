@@ -9,7 +9,7 @@ import domain.tables.LinearConversionTable
  *
  * @param table linear conversion table which will be used for converting
  */
-class ToAsciiLinearImageConverter(table: LinearConversionTable)
+class ToAsciiImageLinearConverter(table: LinearConversionTable)
     extends ToAsciiImageConverter[LinearConversionTable] {
 
   /**
@@ -18,14 +18,17 @@ class ToAsciiLinearImageConverter(table: LinearConversionTable)
    *  @return result image
    */
   def convert(image: GreyscaleImage): AsciiImage = {
-    val chars = Array.ofDim[AsciiPixel](image.getWidth, image.getHeight)
+    if (table.getSymbols.isEmpty)
+      return new AsciiImage(new AsciiPixelGrid(Seq.empty.appended(Seq.empty)))
+    val chars = Array.ofDim[AsciiPixel](image.getHeight, image.getWidth)
     val lengthOfTable = table.getSymbols.length
-    for (x <- 0 until image.getWidth) {
-      for(y <- 0 until image.getHeight){
-
-     chars(x)(y) = new AsciiPixel(
-      table.getSymbols(
-        (image.getElement(x, y).getGreyscale / (256.0 / lengthOfTable)).toInt))}}
+    for (x <- 0 until image.getHeight)
+      for (y <- 0 until image.getWidth)
+        chars(x)(y) = new AsciiPixel(
+          table.getSymbols(
+            (image
+              .getElement(x, y)
+              .getGreyscale / (256.0 / lengthOfTable)).toInt))
     new AsciiImage(new AsciiPixelGrid(chars.map(array => array.toSeq)))
   }
 

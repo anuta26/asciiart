@@ -9,7 +9,7 @@ import domain.tables.NonLinearConversionTable
  *
  * @param table non-linear conversion table which will be used for converting
  */
-class ToAsciiNonLinearImageConverter(table: NonLinearConversionTable)
+class ToAsciiImageNonLinearConverter(table: NonLinearConversionTable)
     extends ToAsciiImageConverter[NonLinearConversionTable] {
 
   /**
@@ -22,16 +22,15 @@ class ToAsciiNonLinearImageConverter(table: NonLinearConversionTable)
     val lengthOfTable = table.getSymbols.length
 
     // greyscale from 0 to range will be converted to the first symbol of the conversion table
-    for {
-      y <- 0 until image.getHeight
-      x <- 0 until image.getWidth
-    } if (image.getElement(x, y).getGreyscale < table.getRange)
-      chars(y)(x) = new AsciiPixel(table.getSymbols(0))
-    else
-      chars(y)(x) = new AsciiPixel(table.getSymbols(((image
-        .getElement(x, y)
-        .getGreyscale - table.getRange) / ((256.0 - table.getRange) / (lengthOfTable - 1))).toInt + 1))
-
+    for (x <- 0 until image.getHeight)
+      for (y <- 0 until image.getWidth){
+        if (image.getElement(x, y).getGreyscale < table.getRange)
+          chars(x)(y) = new AsciiPixel(table.getSymbols(0))
+        else
+          chars(x)(y) = new AsciiPixel(table.getSymbols(((image
+            .getElement(x, y)
+            .getGreyscale - table.getRange) / ((256.0 - table.getRange) / (lengthOfTable - 1))).toInt + 1))
+      }
     new AsciiImage(new AsciiPixelGrid(chars.map(array => array.toSeq)))
   }
 }

@@ -7,7 +7,7 @@ import domain.pixel.AsciiPixel
  *
  * @param grid grid of Ascii pixels
  */
-class AsciiImage (var grid: AsciiPixelGrid) extends Image[AsciiPixel]{
+class AsciiImage (private var grid: AsciiPixelGrid) extends Image[AsciiPixel]{
   override def getGrid: AsciiPixelGrid = grid
   def getWidth: Int = grid.width
   def getHeight: Int = grid.height

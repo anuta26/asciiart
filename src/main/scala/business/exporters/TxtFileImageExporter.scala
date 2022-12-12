@@ -21,8 +21,8 @@ class TxtFileImageExporter(private var _pathToFile: String)
     val file = new File(_pathToFile)
     val writer = new BufferedWriter(new FileWriter(file))
 
-    for (x <- 0 until image.getWidth) {
-      for (y <- 0 until image.getHeight)
+    for (x <- 0 until image.getHeight) {
+      for (y <- 0 until image.getWidth)
         writer.write(image.getGrid.getElement(x, y).getChar)
       writer.write("\n")
     }

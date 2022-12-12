@@ -7,7 +7,7 @@ import domain.pixel.GreyscalePixel
  *
  * @param grid grid of greyscale pixels
  */
-class GreyscaleImage (var grid: GreyscalePixelGrid) extends Image[GreyscalePixel]{
+class GreyscaleImage (private var grid: GreyscalePixelGrid) extends Image[GreyscalePixel]{
   override def getGrid: GreyscalePixelGrid = grid
   def getWidth: Int = grid.width
   def getHeight: Int = grid.height

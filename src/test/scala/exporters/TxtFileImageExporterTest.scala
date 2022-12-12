@@ -84,4 +84,18 @@ class TxtFileImageExporterTest extends FunSuite {
     bufferedSource.close
   }
 
+  test("Export to not txt file 1x2 image") {
+    val grid: AsciiPixelGrid
+    = new AsciiPixelGrid(
+      Seq(
+        Seq(
+          new AsciiPixel('A'),
+          new AsciiPixel('B'))))
+
+    val image: AsciiImage = new AsciiImage(grid)
+
+    val exporter = new TxtFileImageExporter("src/test/resources/output.png")
+    assertThrows[IllegalArgumentException](exporter.export(image))
+  }
+
 }

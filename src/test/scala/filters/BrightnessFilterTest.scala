@@ -118,7 +118,6 @@ class BrightnessFilterTest extends FunSuite {
     val filter: BrightnessGreyscaleImageFilter =
       new BrightnessGreyscaleImageFilter(90)
     val filteredImage: GreyscaleImage = filter.apply(image)
-    assert(filteredImage.grid.pixels.equals(Seq.empty))
-
+    assert(filteredImage.getGrid.pixels.equals(Seq.empty))
   }
 }

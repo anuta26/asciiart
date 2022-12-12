@@ -1,11 +1,10 @@
 package business.loaders
 
-/** Loader which load object of type T from path of type S
+/** Loader which load object of type T
  *
- * @tparam S type of the path to load
  * @tparam T type of the object to be loaded
  */
-trait Loader[S,T] {
+trait Loader[T] {
   /**
    *
    * @return loaded object

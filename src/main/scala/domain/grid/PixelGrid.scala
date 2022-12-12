@@ -8,6 +8,6 @@ import domain.pixel.Pixel
  */
 trait PixelGrid[T <: Pixel] {
   def getElement(x: Int, y: Int): T
-  def width: Int
   def height: Int
+  def width: Int
 }

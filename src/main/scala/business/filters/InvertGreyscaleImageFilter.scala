@@ -13,13 +13,11 @@ class InvertGreyscaleImageFilter extends GreyscaleImageFilter {
    *  @return result image
    */
   override def apply(image: GreyscaleImage): GreyscaleImage = {
-    for {
-      y <- 0 until image.getHeight
-      x <- 0 until image.getWidth
-    } {
-      val greyscale = image.getElement(x, y).getGreyscale
-      image.getElement(x, y).setGreyscale(255 - greyscale)
-    }
+    for (x <- 0 until image.getHeight)
+      for (y <- 0 until image.getWidth){
+        val greyscale = image.getElement(x, y).getGreyscale
+        image.getElement(x, y).setGreyscale(255 - greyscale)
+      }
     image
   }
 

@@ -30,11 +30,12 @@ class ArgumentsParser {
    *
    * @param args input arguments
    */
-  def parse(args: Array[String]): Unit = {
+  def parse(args: Array[String]): Boolean = {
     parsePathToLoad(args)
     parseOutputs(args)
     parseTable(args)
     parseFilters(args)
+    true
   }
 
   /** Finds pathToLoad image in input arguments

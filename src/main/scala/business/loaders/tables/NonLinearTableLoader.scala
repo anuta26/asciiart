@@ -1,11 +1,11 @@
-package business.loaders
+package business.loaders.tables
 
 import domain.tables.NonLinearConversionTable
 
 /** Loader which loads non-linear conversion table
  *
  */
-class NonLinearTableLoader(arg: String) extends TableLoader [NonLinearConversionTable] {
+class NonLinearTableLoader extends TableLoader [NonLinearConversionTable] {
   /** Loads predefined non-linear conversion table
    *
    * @return loaded table

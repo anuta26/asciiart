@@ -1,4 +1,4 @@
-package business.loaders
+package business.loaders.images
 
 import business.generators.RandomRGBImageGenerator
 import domain.image.RGBImage
@@ -7,7 +7,7 @@ import domain.image.RGBImage
  *
  * @param generator random generator to use
  */
-class RGBImageRandomLoader(generator: RandomRGBImageGenerator) extends RGBImageLoader[RandomRGBImageGenerator] {
+class RGBImageRandomLoader(generator: RandomRGBImageGenerator) extends RGBImageLoader {
 
   /** Loads image
    *

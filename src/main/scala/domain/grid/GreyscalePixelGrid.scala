@@ -8,16 +8,21 @@ import domain.pixel.GreyscalePixel
  */
 class GreyscalePixelGrid(private var _pixels: Seq[Seq[GreyscalePixel]])
     extends PixelGrid[GreyscalePixel] {
-  private val _width: Int = _pixels.length
-  private val _height: Int =
-    if (_width == 0)
+  private val _height: Int = _pixels.length
+  private val _width: Int =
+    if (_height == 0)
       0
     else
       _pixels.head.length
   def pixels: Seq[Seq[GreyscalePixel]] = _pixels
 
-  def getElement(x: Int, y: Int): GreyscalePixel =
+  def getElement(x: Int, y: Int): GreyscalePixel = {
+    if (x < 0 || x >= _height || y < 0 || y >= _width) {
+      throw new IllegalStateException("Index is out of borders.")
+    }
     _pixels(x)(y)
-  def width: Int = _width
+  }
+
   def height: Int = _height
+  def width: Int = _width
 }

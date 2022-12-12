@@ -18,11 +18,11 @@ class ToGreyscaleImageConverter
   def convert(image: RGBImage): GreyscaleImage = {
     val pixels = Array.ofDim[GreyscalePixel](image.getHeight, image.getWidth)
     for {
-      y <- 0 until image.getHeight
-      x <- 0 until image.getWidth
+      x <- 0 until image.getHeight
+      y <- 0 until image.getWidth
     } {
       val rgbPixel = image.getElement(x, y)
-      pixels(y)(x) = new GreyscalePixel(
+      pixels(x)(y) = new GreyscalePixel(
         0.3 * rgbPixel.red + 0.59 * rgbPixel.green + 0.11 * rgbPixel.blue)
     }
     new GreyscaleImage(new GreyscalePixelGrid(pixels.map(array => array.toSeq)))

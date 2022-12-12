@@ -415,7 +415,7 @@ class RotateFilterTest extends FunSuite{
     val filter: RotateGreyscaleImageFilter =
       new RotateGreyscaleImageFilter(90)
     val filteredImage: GreyscaleImage = filter.apply(image)
-    assert(filteredImage.grid.pixels.equals(Seq.empty))
+    assert(filteredImage.getGrid.pixels.equals(Seq.empty))
   }
 
 }

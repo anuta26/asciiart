@@ -54,11 +54,11 @@ class RotateGreyscaleImageFilter(private var degree: Int)
    * @return rotated grid
    */
   def rotate(grid: GreyscalePixelGrid): GreyscalePixelGrid = {
-    val rotatePixels = Array.ofDim[GreyscalePixel](grid.height, grid.width)
+    val rotatePixels = Array.ofDim[GreyscalePixel](grid.width, grid.height)
     for {
-      y <- 0 until grid.height
-    } for (x <- 0 until grid.width)
-      rotatePixels(y)(grid.width - 1 - x ) = grid.getElement(x, y)
+      y <- 0 until grid.width
+    } for (x <- 0 until grid.height)
+      rotatePixels(y)(grid.height - 1 - x ) = grid.getElement(x, y)
     new GreyscalePixelGrid(rotatePixels.map(array => array.toSeq))
   }
 }

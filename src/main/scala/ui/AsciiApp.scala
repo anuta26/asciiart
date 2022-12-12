@@ -1,9 +1,10 @@
 package ui
 
-import business.converters.{ToAsciiLinearImageConverter, ToAsciiNonLinearImageConverter, ToGreyscaleImageConverter}
+import business.converters.{ToAsciiImageLinearConverter, ToAsciiImageNonLinearConverter, ToGreyscaleImageConverter}
 import business.exporters.{ConsoleImageExporter, TxtFileImageExporter}
 import business.generators.RandomRGBImageGenerator
-import business.loaders.{LinearTableLoader, NonLinearTableLoader, RGBImageFilePngJpgLoader, RGBImageRandomLoader}
+import business.loaders.images.{RGBImageFileJpgLoader, RGBImageFilePngLoader, RGBImageRandomLoader}
+import business.loaders.tables.{LinearTableLoader, NonLinearTableLoader}
 import domain.image.{AsciiImage, GreyscaleImage, RGBImage}
 import domain.tables.{LinearConversionTable, NonLinearConversionTable}
 
@@ -11,7 +12,7 @@ import domain.tables.{LinearConversionTable, NonLinearConversionTable}
  *
  */
 class AsciiApp {
-  def run(args: Array[String]): Unit = {
+  def run(args: Array[String]): Boolean = {
 
     // parse arguments
     val argsParser = new ArgumentsParser()
@@ -22,11 +23,17 @@ class AsciiApp {
       case "--image-random" =>
         new RGBImageRandomLoader(new RandomRGBImageGenerator).load()
       case _ =>
-        new RGBImageFilePngJpgLoader(argsParser.pathToLoad).load()
-
+        val format: String =  argsParser.pathToLoad.substring( argsParser.pathToLoad.length - 3,  argsParser.pathToLoad.length)
+        format match {
+          case "jpg" => new RGBImageFileJpgLoader(argsParser.pathToLoad).load()
+          case "png" => new RGBImageFilePngLoader(argsParser.pathToLoad).load()
+          case _ =>  throw new IllegalArgumentException("Wrong format of input file.")
+        }
     }
+
     var greyscaleImage: GreyscaleImage =
       new ToGreyscaleImageConverter().convert(rgbImage)
+
 
     // apply filters
     for (filter <- argsParser.filters)
@@ -38,15 +45,15 @@ class AsciiApp {
       case "default" | "Paul Bourkes’ table" =>
         val table: LinearConversionTable =
           new LinearTableLoader(argsParser.table).load()
-        val converter: ToAsciiLinearImageConverter =
-          new ToAsciiLinearImageConverter(table)
+        val converter: ToAsciiImageLinearConverter =
+          new ToAsciiImageLinearConverter(table)
         converter.convert(greyscaleImage)
 
       case "non-linear" =>
-        val tableLoader = new NonLinearTableLoader(argsParser.table)
+        val tableLoader = new NonLinearTableLoader()
         val table: NonLinearConversionTable = tableLoader.load()
-        val converter: ToAsciiNonLinearImageConverter =
-          new ToAsciiNonLinearImageConverter(table)
+        val converter: ToAsciiImageNonLinearConverter =
+          new ToAsciiImageNonLinearConverter(table)
         converter.convert(greyscaleImage)
     }
 
@@ -60,6 +67,8 @@ class AsciiApp {
           val exporter: TxtFileImageExporter = new TxtFileImageExporter(output)
           exporter.export(asciiImage)
       }
+
+    true
   }
 
 }

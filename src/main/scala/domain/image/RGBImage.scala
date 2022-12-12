@@ -7,10 +7,10 @@ import domain.pixel.RGBPixel
  *
  * @param grid grid of rgb pixels
  */
-class RGBImage(var grid: RGBPixelGrid) extends Image[RGBPixel]{
+class RGBImage(private var grid: RGBPixelGrid) extends Image[RGBPixel]{
   override def getGrid: RGBPixelGrid = grid
-  def getWidth: Int = grid.width
   def getHeight: Int = grid.height
+  def getWidth: Int = grid.width
   override def getElement(x: Int, y: Int): RGBPixel = {
     grid.getElement(x,y)
   }

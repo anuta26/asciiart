@@ -16,10 +16,8 @@ class BrightnessGreyscaleImageFilter(value: Int) extends GreyscaleImageFilter {
    *  @return result image
    */
   override def apply(image: GreyscaleImage): GreyscaleImage = {
-    for {
-      y <- 0 until image.getHeight
-      x <- 0 until image.getWidth
-    } {
+    for (x <- 0 until image.getHeight)
+      for (y <- 0 until image.getWidth){
       var greyscale = image.getElement(x, y).getGreyscale
       greyscale += value
       if (greyscale > 255)

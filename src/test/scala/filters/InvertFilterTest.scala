@@ -92,7 +92,7 @@ class InvertFilterTest extends FunSuite {
     val filter: InvertGreyscaleImageFilter =
       new InvertGreyscaleImageFilter
     val filteredImage: GreyscaleImage = filter.apply(image)
-    assert(filteredImage.grid.pixels.equals(Seq.empty))
+    assert(filteredImage.getGrid.pixels.equals(Seq.empty))
   }
 
 }
