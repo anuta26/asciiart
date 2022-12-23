@@ -1,25 +1,31 @@
 # ASCII Art
 
-[![pipeline status](https://gitlab.fit.cvut.cz/BI-OOP/B201/asciiart/badges/master/pipeline.svg)](https://gitlab.fit.cvut.cz/BI-OOP/B201/asciiart)
+The idea of this project is to load images, translate them into ASCII ART images, optionally apply filters, and save them.
 
-The idea of this project is to load images, translate them into ASCII ART images, optionally apply filters, and save them. (https://courses.fit.cvut.cz/BI-OOP/projects/ASCII-art.html)
+### App supports commands:
 
-App supports commands:
+Inputs:
 
---image "path to image"
+    --image "path to image"
 
---image-random
+    --image-random
 
---output-console
+Outputs:
 
---output-file "path to file"
+    --output-console
 
---table "name of table" (Supported names: "non-linear", "Paul Bourkes’ table". Default table is "Paul Bourkes’ table")
+    --output-file "path to file"
 
---custom-table "content of table"
+Conversion tables:
 
---invert
+    --table "name of table" (Supported names: "non-linear", "Paul Bourkes’ table". Default table is "Paul Bourkes’ table")
 
---rotate value (Value may be: +90,-90, 180, 360, -270...)
+    --custom-table "content of table"
 
---brightness value (Value is a number.)
+Filters:
+
+    --invert
+
+    --rotate value (Value may be: +90,-90, 180, 360, -270...)
+
+    --brightness value (Value is a number.)
